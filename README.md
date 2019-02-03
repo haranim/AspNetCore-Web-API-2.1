@@ -7,7 +7,8 @@ with JWT Authentication
 3. MongoDB
 
 # Requirements
-
+Games and Collections can be fetched by anonymous user
+A user has to register and login to create a session for a valid game ID
 
 
 # Database Set Up
