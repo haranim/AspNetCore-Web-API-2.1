@@ -6,10 +6,17 @@ with JWT Authentication
 2. Visual Studio 2017 version 15.9
 3. MongoDB
 
-# Requirements
+# Features
+    - Rest services with various CRUD operations on Mongo DB
+    - Authentication using JWT token
+    - Swagger UI
+    - Gloabl Error Handling with built in middleware
+    - supporting Pagination for bulk data
+    - Unit testing
+   
+# Use case
 1. Games and Collections can be fetched by anonymous user
 2. A user has to register and login to create a session for a valid game ID
-
 
 # Database Set Up
 1. Choose a folder in local system to store database
@@ -21,11 +28,7 @@ with JWT Authentication
 1. Download source code and execute
 2. APIs can be tested on Postman / Swagger
 
+Architecture:
 https://github.com/haranim/AspNetCore-Web-API-2.1/blob/master/Architecture.JPG
 
-
-https://github.com/haranim/AspNetCore-Web-API-2.1.git/Architecture.JPG
-
-
-        AspNetCore-Web-API-2.1/Architecture.JPG
       
