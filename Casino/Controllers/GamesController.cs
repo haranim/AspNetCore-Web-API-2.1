@@ -27,7 +27,6 @@ namespace Casino.Controllers
             {
                 return NotFound("Games not found");
             }
-
             return Ok(games);
         }
 
