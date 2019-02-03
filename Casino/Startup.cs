@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Casino.Extensions;
 using Casino.Helpers;
 using Casino.IServices;
 using Casino.Services;
@@ -107,6 +108,7 @@ namespace Casino
                 app.UseHsts();
             }
 
+            app.ConfigureExceptionHandler();
             app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
             app.UseMvc();

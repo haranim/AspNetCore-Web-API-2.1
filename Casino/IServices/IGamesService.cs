@@ -8,7 +8,7 @@ namespace Casino.IServices
 {
     public interface IGamesService
     {
-        List<Games> GetGames(int skip, int take);
+        List<Games> GetGames(int? skip, int? take);
         List<GamesCollection> GetGamesCollection();
         Games GetGame(string id);
     }

@@ -29,9 +29,8 @@ namespace Tests
         {
             _server = new TestServer(new WebHostBuilder()
                             .UseEnvironment("Development")
-                            .UseContentRoot("C:\\work\\MyProjects\\New folder\\Casino\\WebAPI\\Tests")
                             .UseConfiguration(new ConfigurationBuilder()
-                                .SetBasePath("C:\\work\\MyProjects\\New folder\\Casino\\WebAPI\\Tests")
+                                .SetBasePath(Directory.GetCurrentDirectory())
                                 .AddJsonFile("appsettings.json")
                                 .Build()
                             )

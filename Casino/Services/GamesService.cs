@@ -26,12 +26,12 @@ namespace Casino.Services
             
         }
 
-        public List<Games> GetGames(int skip = 0, int take = 10)
+        public List<Games> GetGames(int? skip, int? take)
         {
             //_games = _database.GetCollection<Games>("Games");
             var _context = _database.GetCollection<Games>("Games").AsQueryable<Games>();
 
-            var games = _context.Skip(skip).Take(take).ToList();
+            var games = _context.Skip(skip ?? 0).Take(take ?? 10).ToList();
 
             return games;
         }

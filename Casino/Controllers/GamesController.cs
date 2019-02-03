@@ -22,22 +22,13 @@ namespace Casino.Controllers
         [HttpGet]
         public IActionResult GetGames(int? skip, int? take)
         {
-            try
+            var games = _gamesService.GetGames(skip,take );
+            if (games == null)
             {
-                var games = _gamesService.GetGames( skip ?? 0, take ?? 10);
-                if (games == null)
-                {
-                    return NotFound("Games not found");
-                }
-
-                return Ok(games);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Internal server error");
+                return NotFound("Games not found");
             }
 
-            
+            return Ok(games);
         }
 
 
