@@ -19,4 +19,4 @@ with JWT Authentication
 
 # API Set up
 1. Download source code and execute
-APIs can be tested on Postman / Swagger
+2. APIs can be tested on Postman / Swagger
