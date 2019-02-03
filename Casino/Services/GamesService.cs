@@ -19,6 +19,7 @@ namespace Casino.Services
     {
         private IMongoCollection<Games> _games;
         private IMongoCollection<GamesCollection> _gamesCollection;
+        private const int PAGE_SIZE = 10;
          
 
         public GamesService(IConfiguration config) : base(config)
@@ -28,10 +29,9 @@ namespace Casino.Services
 
         public List<Games> GetGames(int? skip, int? take)
         {
-            //_games = _database.GetCollection<Games>("Games");
             var _context = _database.GetCollection<Games>("Games").AsQueryable<Games>();
 
-            var games = _context.Skip(skip ?? 0).Take(take ?? 10).ToList();
+            var games = _context.Skip(skip ?? 0).Take(take ?? PAGE_SIZE).ToList();
 
             return games;
         }
@@ -42,6 +42,8 @@ namespace Casino.Services
             var list = _gamesCollection.Find(collection => true).ToList();
             _games = _database.GetCollection<Games>("Games");
 
+            // Games collection does not store games ids as the relation already exists in games dataset
+            // using linQ we fill in list of game ids for a particular colelction id
             foreach (var item in list)
             {
                item.Games = _games.Find(game => game.Collection.Contains(item.Id)).ToList().Select(m => m.Id.ToString()).ToArray();
