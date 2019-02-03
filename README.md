@@ -22,3 +22,6 @@ with JWT Authentication
 2. APIs can be tested on Postman / Swagger
 
 https://github.com/haranim/AspNetCore-Web-API-2.1/blob/master/Architecture.JPG
+
+
+https://github.com/haranim/AspNetCore-Web-API-2.1.git/Architecture.JPG
