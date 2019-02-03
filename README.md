@@ -25,3 +25,7 @@ https://github.com/haranim/AspNetCore-Web-API-2.1/blob/master/Architecture.JPG
 
 
 https://github.com/haranim/AspNetCore-Web-API-2.1.git/Architecture.JPG
+
+
+        AspNetCore-Web-API-2.1/Architecture.JPG
+      
