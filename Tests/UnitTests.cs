@@ -2,6 +2,7 @@
 using Casino.IServices;
 using Casino.Model;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using Moq;
@@ -15,17 +16,14 @@ namespace Tests
 {
     public class UnitTests
     {
-       
+
         [Fact]
         public void Get_WhenCalled_ReturnsAllItems()
         {
-            // Arrange
             var controller = new UsersController(CreateMoqUsers().Object);
 
-            // Act
             var result = controller.Get();
 
-            // Assert
             var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
             var persons = okResult.Value.Should().BeAssignableTo<IEnumerable<User>>().Subject;
 
@@ -36,10 +34,9 @@ namespace Tests
         public void GetById_UnknownId_ReturnsNotFoundResult()
         {
             var controller = new UsersController(CreateMoqUsers().Object);
-            // Act
+
             var result = controller.Get("1234");
 
-            // Assert
             result.Should().BeOfType<NotFoundResult>();
         }
 
@@ -47,18 +44,17 @@ namespace Tests
         [Fact]
         public void Add_InvalidObjectPassed_ReturnsBadRequest()
         {
-            // Arrange
+
             var user = new User()
             {
                 Username = "John"
             };
-            // Arrange
+
             var controller = new UsersController(CreateMoqUsers().Object);
             controller.ModelState.AddModelError("Password", "Required");
-            // Act
+
             var result = controller.Register(user);
 
-            // Assert
             result.Should().BeOfType<BadRequestObjectResult>();
         }
 
@@ -66,21 +62,17 @@ namespace Tests
         [Fact]
         public void Add_ValidObjectPassed_ReturnsCreatedResponse()
         {
-            // Arrange
+
             var user = new User()
             {
                 Username = "Alex",
                 Password = "Password"
             };
 
-            // Act
             var controller = new UsersController(CreateMoqUsers().Object);
 
-            // Act
             var result = controller.Register(user) as CreatedAtActionResult;
-            
 
-            // Assert
             var okResult = result.Should().BeOfType<CreatedAtActionResult>().Subject;
             var newUser = okResult.Value.Should().BeAssignableTo<User>().Subject;
             newUser.Username.Should().Be("Alex");
@@ -94,11 +86,47 @@ namespace Tests
               {
                 new User{Id=ObjectId.GenerateNewId(1), Username ="Steve", Password="Winter"},
                 new User{Id=ObjectId.GenerateNewId(2), Username="John", Password="Doe"},
-                new User{Id=ObjectId.GenerateNewId(3), Username="Juergen", Password="Gutsch"},
+                new User{Id=ObjectId.GenerateNewId(3), Username="Juergen", Password="Gutsch"}
               });
 
             return serviceMock;
         }
+
+        private Mock<IGamesService> CreateMoqGames()
+        {
+            var serviceMock = new Mock<IGamesService>();
+            serviceMock.Setup(x => x.GetGames(1,2)).Returns(() => new List<Games>
+              {
+                new Games{Id=ObjectId.GenerateNewId(4), Name ="Game1"},
+                new Games{Id=ObjectId.GenerateNewId(5), Name="Game2"}
+              });
+
+            return serviceMock;
+        }
+
+        private Mock<ISessionsService> CreateMoqSession(Games game, User user)
+        {
+            var serviceMock = new Mock<ISessionsService>();
+            serviceMock.Setup(x => x.CreateSession(game, user)).Returns(() => 
+                new Session{ Id=ObjectId.GenerateNewId(6), UserId=ObjectId.GenerateNewId(1), GameId=ObjectId.GenerateNewId(4) });
+
+            return serviceMock;
+        }
+
+        [Fact]
+        public void GetGames_WhenCalled_ReturnsAllItems()
+        {
+            var controller = new GamesController(CreateMoqGames().Object);
+
+            var result = controller.GetGames(1,2);
+
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            var games = okResult.Value.Should().BeAssignableTo<IEnumerable<Games>>().Subject;
+
+            games.Count().Should().Be(2);
+        }
+
+        
 
     }
 }

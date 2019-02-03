@@ -1,0 +1,55 @@
+use CasinoDb
+
+db.createCollection('Games')
+
+db.Games.insertMany(
+    [{
+        "Name": "Goldilocks",
+        "Category": "Video slot",
+        "Thumnail": "/assets/themes/default/web/images/game_popup_default-bg-image.jpg",
+        "Devices": [
+            "Desktop"
+        ],
+        "Collection": [
+            "H",
+            "E"
+        ]
+    },
+    {
+        "Name": "The Wild Chase",
+        "Category": "Video slot",
+        "Thumnail": "/assets/themes/default/web/images/game_popup_default-bg-image.jpg",
+        "Devices": [
+            "Desktop"
+        ],
+        "Collection": [
+            "E"
+        ]
+    }
+])
+
+db.createCollection('GamesCollection')
+
+db.GamesCollection.insertMany([
+{"_id" : "F",'Name':'Featured','Games':[],'SubCollections':null}, 
+{"_id" : "E",'Name':'Exclusive','Games':[],'SubCollections':null}, 
+{"_id" : "H",'Name':'Hot','Games':[],'SubCollections':null}, 
+{"_id" : "M",'Name':'Minislot','Games':[],'SubCollections':null}, 
+{"_id" : "N",'Name':'New','Games':[],'SubCollections':null}
+])
+
+
+
+
+
+db.createCollection('Users')
+
+db.Users.insertMany([
+{'UserName':'Test','Password':"Test"}, 
+])
+
+db.GamesCollection.find({}).pretty()
+
+db.Games.find({}).pretty()
+
+db.Users.find({}).pretty()
